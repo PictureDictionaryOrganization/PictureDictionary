@@ -9,24 +9,27 @@ import FormField from '../components/Forms/FormField';
 import FormButton from '../components/Forms/FormButton';
 import IconButton from '../components/IconButton';
 import FormErrorMessage from '../components/Forms/FormErrorMessage';
-import { registerWithEmail } from '../components/Firebase/firebase';
+import { registerWithEmail, pushProfil } from '../components/Firebase/firebase';
 import useStatusBar from '../hooks/useStatusBar';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .required()
-    .label('Name'),
+  ad: Yup.string()
+    .required('Lütfen adınızı giriniz.')
+    .label('Ad'),
+  soyad: Yup.string()
+    .required('Lütfen soyadınızı giriniz.')
+    .label('Soyad'),
   email: Yup.string()
-    .required('Please enter a valid email')
+    .required('Lütfen e-mail adresini giriniz.')
     .email()
     .label('Email'),
-  password: Yup.string()
-    .required()
-    .min(6, 'Password must have at least 6 characters')
-    .label('Password'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Confirm Password must match Password')
-    .required('Confirm Password is required')
+  sifre: Yup.string()
+    .required('Lütfen şifrenizi giriniz.')
+    .min(6, 'Şifre en az 6 karakterden oluşmalıdır')
+    .label('Şifre'),
+  sifretekrar: Yup.string()
+    .oneOf([Yup.ref('sifre')], 'Şifreleriniz eşleşmiyor')
+    .required('Şifreniz boş olamaz')
 });
 
 export default function RegisterScreen({ navigation }) {
@@ -61,44 +64,53 @@ export default function RegisterScreen({ navigation }) {
   }
 
   async function handleOnSignUp(values, actions) {
-    const { email, password } = values;
+    const {ad, soyad, email, sifre } = values;
+    var uid;
     try {
-      await registerWithEmail(email, password);
+      await registerWithEmail(email, sifre).then((User)=>uid=User.user.uid);
     } catch (error) {
       setRegisterError(error.message);
     }
+    pushProfil (uid, ad, soyad, email );
   }
 
   return (
     <SafeView style={styles.container}>
       <Form
         initialValues={{
-          name: '',
+          ad: '',
+          soyad: '',
           email: '',
-          password: '',
-          confirmPassword: ''
+          sifre: '',
+          sifretekrar: ''
         }}
         validationSchema={validationSchema}
         onSubmit={values => handleOnSignUp(values)}
       >
         <FormField
-          name="name"
+          name="ad"
           leftIcon="account"
-          placeholder="Enter name"
+          placeholder="Adınızı girin"
+          autoFocus={true}
+        />
+         <FormField
+          name="soyad"
+          leftIcon="account"
+          placeholder="Soyadınızı girin"
           autoFocus={true}
         />
         <FormField
           name="email"
           leftIcon="email"
-          placeholder="Enter email"
+          placeholder="E-mailinizi girin"
           autoCapitalize="none"
           keyboardType="email-address"
           textContentType="emailAddress"
         />
         <FormField
-          name="password"
+          name="sifre"
           leftIcon="lock"
-          placeholder="Enter password"
+          placeholder="Şifrenizi girin"
           autoCapitalize="none"
           autoCorrect={false}
           secureTextEntry={passwordVisibility}
@@ -107,9 +119,9 @@ export default function RegisterScreen({ navigation }) {
           handlePasswordVisibility={handlePasswordVisibility}
         />
         <FormField
-          name="confirmPassword"
+          name="sifretekrar"
           leftIcon="lock"
-          placeholder="Confirm password"
+          placeholder="Şifrenizi tekrar girin"
           autoCapitalize="none"
           autoCorrect={false}
           secureTextEntry={confirmPasswordVisibility}
@@ -117,7 +129,7 @@ export default function RegisterScreen({ navigation }) {
           rightIcon={confirmPasswordIcon}
           handlePasswordVisibility={handleConfirmPasswordVisibility}
         />
-        <FormButton title={'Register'} />
+        <FormButton title={'Kaydol'} />
         {<FormErrorMessage error={registerError} visible={true} />}
       </Form>
       <IconButton

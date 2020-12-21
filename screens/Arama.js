@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Button } from 'react-native';
-
+import HeaderComponent from "../components/Header";
 import useStatusBar from '../hooks/useStatusBar';
 import { logout } from '../components/Firebase/firebase';
 
 export default function HomeScreen() {
-  useStatusBar('dark-content');
+  useStatusBar('light-content');
   async function handleSignOut() {
     try {
       await logout();
@@ -15,6 +15,7 @@ export default function HomeScreen() {
   }
   return (
     <View style={styles.container}>
+      <HeaderComponent/>  
       <Button title="Sign Out" onPress={handleSignOut} />
     </View>
   );
