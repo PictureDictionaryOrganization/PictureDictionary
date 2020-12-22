@@ -1,28 +1,71 @@
-import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import React,{ useState } from 'react';
+import { Text, View, SafeAreaView, Image, ScrollView,LogBox,TouchableOpacity,StyleSheet} from "react-native";
 import HeaderComponent from "../components/Header";
 import useStatusBar from '../hooks/useStatusBar';
 import { logout } from '../components/Firebase/firebase';
+import * as firebase from 'firebase';
+import Colors from '../utils/colors'
 
+const user ={email:'',name:'',surname:'',image:''};
 export default function HomeScreen() {
   useStatusBar('light-content');
-  async function handleSignOut() {
-    try {
-      await logout();
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
+
+
+  const [userstate,setUser] = useState({});
+  var User = firebase.auth().currentUser;
+  firebase.database().ref('Users/'+User.uid+'/ProfileInformation').once('value', function (snapshot) {
+    user.name = (snapshot.val() && snapshot.val().name) || 'Anonymous';
+    user.surname = (snapshot.val() && snapshot.val().surname) || 'Anonymous';
+    user.email = (snapshot.val() && snapshot.val().email) || 'Anonymous';
+    //user.image=(snapshot.val() && snapshot.val().profilePhoto);
+    setUser(user);
+});
   return (
-    <View style={styles.container}>
-      <HeaderComponent/>  
-      <Button title="Sign Out" onPress={handleSignOut} />
-    </View>
+    <SafeAreaView style={styles.container}>
+    <HeaderComponent/>  
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.titleBar}>
+        </View>
+        <View style={styles.profileImage}>
+                <Image source={require('../assets/profile-pic.jpg')} style={styles.image} resizeMode="stretch"></Image> 
+        </View>
+        <View style={styles.textview}>
+          <Text style={[{ color: "black", fontSize: 22  }]}> Ad: {userstate.name}</Text>
+          <Text style={[{ color: "black", fontSize: 22  }]}> Soyad: {userstate.surname}</Text>
+          <Text style={[{ color: "black", fontSize: 22  }]}> Mail: {userstate.email}</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
+  titleBar: {
+    flexDirection: "column",
+    //justifyContent: "space-between",
+    height: 180,
+    backgroundColor:Colors.inactiveButton
+  },
+  textview:{
+    alignItems:"center",
+    marginTop:"7%"
+  },
+  image: {
+    flex: 1,
+    width: null,
+    alignSelf: "stretch",
+    borderRadius:50,
+  },
+  profileImage: {
+    width: 180,
+    height: 180,
+    borderRadius: 100,
+    overflow: "hidden",
+    alignSelf:"center",
+    marginTop:-95
+  },  
 });

@@ -5,11 +5,12 @@ import useStatusBar from '../hooks/useStatusBar';
 
 export const HeaderComponent = () => {
 	useStatusBar('light-content');
+
     return(
         <Header style={{backgroundColor:"#b71c1c"}} >   
         <Body style ={{alignItems:"center"}}>
         <View style={{flexDirection:"row"}}>
-			<Image source={require('../assets/flame.png')} style={styles.logo} />        
+			<Image source={require('../assets/logo.png')} style={styles.logo} />        
             <Text style ={styles.headerText}>Dictionary</Text>
         </View>           
         </Body>
