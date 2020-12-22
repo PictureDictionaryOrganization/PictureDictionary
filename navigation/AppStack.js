@@ -12,70 +12,67 @@ import Colors from '../utils/colors';
 
 const Tab = createBottomTabNavigator();
 const drawer=  createDrawerNavigator();
-export default function AppStack() {
+export default function AppStack({navigation}) {
 
-const home = () =>{
+  const home = ({navigation}) =>{
 
-    function AramaPage() {
-      useStatusBar('light-content');
-      return (<Arama/>);
+      function AramaPage() {
+        return (<Arama navigation={navigation}/>);
+      }
+      function FavorilerPage() {
+        return (<Favoriler navigation={navigation}/>);
+      }
+      function ProfilPage() { 
+        return (<Profil navigation={navigation}/>);
+      }
+      
+      return (
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                if (route.name === 'Arama') {
+                  return (
+                    <Ionicons
+                      name={focused ? 'ios-search' : 'ios-search'} size={size} color={color} />
+                  );
+                }
+                else if (route.name === 'Favoriler') {
+                  return (
+                    <Ionicons
+                      name={focused ? 'ios-heart' : 'ios-heart'} size={size} color={color}/>
+                  );
+                }
+                else if (route.name === 'Profil') {
+                  return (
+                    <Ionicons
+                      name={focused ? 'md-person' : 'md-person'} size={size} color={color}/>
+                  );
+                }
+              },
+            })}
+            tabBarOptions={{
+              activeTintColor: Colors.black,
+              inactiveTintColor: Colors.inactiveButton,
+              activeBackgroundColor: Colors.tabbarBackgroundColor,
+              inactiveBackgroundColor: Colors.tabbarBackgroundColor
+            }}
+          >
+            <Tab.Screen name="Arama" component={AramaPage} />
+            <Tab.Screen name="Favoriler" component={FavorilerPage} />
+            <Tab.Screen name="Profil" component={ProfilPage} />
+          </Tab.Navigator>
+      );
+
     }
-    function FavorilerPage() {
-      useStatusBar('light-content');
-      return (<Favoriler/>);
-    }
-    function ProfilPage() { 
-      useStatusBar('light-content');
-      return (<Profil/>);
-    }
-    
+
     return (
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              if (route.name === 'Arama') {
-                return (
-                  <Ionicons
-                    name={focused ? 'ios-search' : 'ios-search'} size={size} color={color} />
-                );
-              }
-              else if (route.name === 'Favoriler') {
-                return (
-                  <Ionicons
-                    name={focused ? 'ios-heart' : 'ios-heart'} size={size} color={color}/>
-                );
-              }
-              else if (route.name === 'Profil') {
-                return (
-                  <Ionicons
-                    name={focused ? 'md-person' : 'md-person'} size={size} color={color}/>
-                );
-              }
-            },
-          })}
-          tabBarOptions={{
-            activeTintColor: Colors.black,
-            inactiveTintColor: Colors.inactiveButton,
-            activeBackgroundColor: Colors.tabbarBackgroundColor,
-            inactiveBackgroundColor: Colors.tabbarBackgroundColor
-          }}
-        >
-          <Tab.Screen name="Arama" component={AramaPage} />
-          <Tab.Screen name="Favoriler" component={FavorilerPage} />
-          <Tab.Screen name="Profil" component={ProfilPage} />
-        </Tab.Navigator>
-    );
 
-  }
-
-  return (
-
-      <drawer.Navigator >
-          <drawer.Screen name="Home" component={home} />
-          <drawer.Screen name="Profil Düzenle" component={Duzenle} />
-      </drawer.Navigator>
-
-);
+        <drawer.Navigator >
+            <drawer.Screen name="Home" component={home} navigation={navigation} />
+            <drawer.Screen name="Profil Düzenle" component={Duzenle} />
+        </drawer.Navigator>
+        
+  );
   
 
 }

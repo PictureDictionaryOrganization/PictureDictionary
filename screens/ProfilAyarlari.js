@@ -12,7 +12,7 @@ export default function ProfilAyarlari({navigation}) {
   useStatusBar('light-content');
 return (
     <SafeAreaView style={styles.container}>
-      <HeaderComponent/>
+       <HeaderComponent navigation={navigation}/>  
         <ScrollView showsVerticalScrollIndicator={false}>
 
           <View style={styles.titleBar,{justifyContent:"space-between"}}>

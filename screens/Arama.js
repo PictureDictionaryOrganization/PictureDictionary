@@ -4,7 +4,7 @@ import HeaderComponent from "../components/Header";
 import useStatusBar from '../hooks/useStatusBar';
 import { logout } from '../components/Firebase/firebase';
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   useStatusBar('light-content');
   async function handleSignOut() {
     try {
@@ -15,7 +15,7 @@ export default function HomeScreen() {
   }
   return (
     <View style={styles.container}>
-      <HeaderComponent/>  
+      <HeaderComponent navigation={navigation}/>  
       <Button title="Sign Out" onPress={handleSignOut} />
     </View>
   );

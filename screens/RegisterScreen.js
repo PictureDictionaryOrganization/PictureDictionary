@@ -91,13 +91,13 @@ export default function RegisterScreen({ navigation }) {
           name="ad"
           leftIcon="account"
           placeholder="Adınızı girin"
-          autoFocus={true}
+          autoFocus={false}
         />
          <FormField
           name="soyad"
           leftIcon="account"
           placeholder="Soyadınızı girin"
-          autoFocus={true}
+          autoFocus={false}
         />
         <FormField
           name="email"

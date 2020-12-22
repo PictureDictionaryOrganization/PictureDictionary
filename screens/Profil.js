@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import React, { useState, useEffect } from 'react'
 import { Text, View, SafeAreaView, Image, ScrollView,LogBox,TouchableOpacity,StyleSheet} from "react-native";
 import HeaderComponent from "../components/Header";
 import useStatusBar from '../hooks/useStatusBar';
@@ -6,22 +6,24 @@ import { logout } from '../components/Firebase/firebase';
 import * as firebase from 'firebase';
 import Colors from '../utils/colors'
 
-const user ={email:'',name:'',surname:'',image:''};
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   useStatusBar('light-content');
-
   const [userstate,setUser] = useState({});
-  var User = firebase.auth().currentUser;
-  firebase.database().ref('Users/'+User.uid+'/ProfileInformation').once('value', function (snapshot) {
-    user.name = (snapshot.val() && snapshot.val().name) || 'Anonymous';
-    user.surname = (snapshot.val() && snapshot.val().surname) || 'Anonymous';
-    user.email = (snapshot.val() && snapshot.val().email) || 'Anonymous';
-    user.image=(snapshot.val() && snapshot.val().profilePhoto);
-    setUser(user);
-});
+
+  useEffect(() => {
+    var user ={email:'',name:'',surname:'',image:''};
+    var User = firebase.auth().currentUser;
+    firebase.database().ref('Users/'+User.uid+'/ProfileInformation').once('value', function (snapshot) {
+      user.name = (snapshot.val() && snapshot.val().name) || 'Anonymous';
+      user.surname = (snapshot.val() && snapshot.val().surname) || 'Anonymous';
+      user.email = (snapshot.val() && snapshot.val().email) || 'Anonymous';
+      user.image=(snapshot.val() && snapshot.val().profilePhoto);
+      setUser(user);
+  });
+})
   return (
     <SafeAreaView style={styles.container}>
-    <HeaderComponent/>  
+    <HeaderComponent navigation={navigation}/>  
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titleBar}>
         </View>

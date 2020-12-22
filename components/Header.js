@@ -1,19 +1,23 @@
 import React from "react";
-import {Text,StyleSheet,Image,View} from "react-native";
+import {Text,StyleSheet,Image,View,TouchableOpacity} from "react-native";
 import {Header,Body} from "native-base";
+import { Ionicons } from "@expo/vector-icons";
 import useStatusBar from '../hooks/useStatusBar';
 
-export const HeaderComponent = () => {
+export const HeaderComponent = ({navigation}) => {
 	useStatusBar('light-content');
 
     return(
-        <Header style={{backgroundColor:"#b71c1c"}} >   
-        <Body style ={{alignItems:"center"}}>
-        <View style={{flexDirection:"row"}}>
-			<Image source={require('../assets/logo.png')} style={styles.logo} />        
-            <Text style ={styles.headerText}>Dictionary</Text>
-        </View>           
-        </Body>
+        <Header style={{backgroundColor:"#b71c1c",alignItems:"center"}} >   
+			<TouchableOpacity style={styles.icons} onPress={()=> navigation.openDrawer()}>
+				<Ionicons name="md-menu" size={28} color="white" />
+			</TouchableOpacity>
+			<Body style ={{alignItems:"center",paddingLeft:25}}>
+				<View style={{flexDirection:"row"}}>
+					<Image source={require('../assets/logo.png')} style={styles.logo} />        
+					<Text style ={styles.headerText}>Dictionary</Text>
+				</View>           
+			</Body>
         </Header>
     );
 }
