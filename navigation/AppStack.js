@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Arama from '../screens/Arama';
 import Favoriler from '../screens/Favoriler';
 import Profil from '../screens/Profil';
+import Duzenle from '../screens/ProfilAyarlari'
 import useStatusBar from '../hooks/useStatusBar';
 import Colors from '../utils/colors';
 
@@ -71,6 +72,7 @@ const home = () =>{
 
       <drawer.Navigator >
           <drawer.Screen name="Home" component={home} />
+          <drawer.Screen name="Profil Düzenle" component={Duzenle} />
       </drawer.Navigator>
 
 );

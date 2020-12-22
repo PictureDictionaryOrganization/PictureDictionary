@@ -8,5 +8,6 @@ export default {
   mediumGrey: '#6e6869',
   red: '#fc5c65',
   inactiveButton:'#fce4ec',
-  tabbarBackgroundColor: "#b71c1c"
+  tabbarBackgroundColor: "#b71c1c",
+  changeButtonColor:"#E1E2E6",
 };

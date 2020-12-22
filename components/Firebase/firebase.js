@@ -25,5 +25,5 @@ firebase.database().ref('Users/'+ uid +('/ProfileInformation')).set({
   name:name,
   surname:surname,
   email:email,
-  //profilePhoto:'https://firebasestorage.googleapis.com/v0/b/taxbill-e4abb.appspot.com/o/images%2Flogo.png?alt=media&token=f7aee502-f1c1-4b78-852c-81138730b66f',
+  profilePhoto:'https://firebasestorage.googleapis.com/v0/b/reactdictionaryapp.appspot.com/o/images%2Flogo.png?alt=media&token=316440a1-4467-4567-9cf7-b48f925eb385',
 });

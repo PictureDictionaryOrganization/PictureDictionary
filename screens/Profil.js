@@ -10,15 +10,13 @@ const user ={email:'',name:'',surname:'',image:''};
 export default function HomeScreen() {
   useStatusBar('light-content');
 
-
-
   const [userstate,setUser] = useState({});
   var User = firebase.auth().currentUser;
   firebase.database().ref('Users/'+User.uid+'/ProfileInformation').once('value', function (snapshot) {
     user.name = (snapshot.val() && snapshot.val().name) || 'Anonymous';
     user.surname = (snapshot.val() && snapshot.val().surname) || 'Anonymous';
     user.email = (snapshot.val() && snapshot.val().email) || 'Anonymous';
-    //user.image=(snapshot.val() && snapshot.val().profilePhoto);
+    user.image=(snapshot.val() && snapshot.val().profilePhoto);
     setUser(user);
 });
   return (
@@ -28,7 +26,7 @@ export default function HomeScreen() {
         <View style={styles.titleBar}>
         </View>
         <View style={styles.profileImage}>
-                <Image source={require('../assets/profile-pic.jpg')} style={styles.image} resizeMode="stretch"></Image> 
+                <Image source={{uri:userstate.image}} style={styles.image} resizeMode="stretch"></Image> 
         </View>
         <View style={styles.textview}>
           <Text style={[{ color: "black", fontSize: 22  }]}> Ad: {userstate.name}</Text>
@@ -59,6 +57,7 @@ const styles = StyleSheet.create({
     width: null,
     alignSelf: "stretch",
     borderRadius:50,
+    backgroundColor:"black"
   },
   profileImage: {
     width: 180,
@@ -69,3 +68,8 @@ const styles = StyleSheet.create({
     marginTop:-95
   },  
 });
+
+LogBox.ignoreLogs([
+  'Setting a timer for a long period of time',
+  'Can\'t perform a React state update on an unmounted component.'
+])
