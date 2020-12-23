@@ -54,15 +54,16 @@ return (
     <HeaderComponent navigation={navigation}/>  
       <View>
       <InputGroup>
-            <Button title = "çevir"
-            onPress={translate}/>
+            <Button title = {titleState}
+            onPress={changeTitle}/>
+            
 
             <Input style ={styles.inputSearch} 
             placeholder="Choose pick up location" onChangeText={(value)=>setText(value)}
             />
             
-            <Button title = {titleState}
-            onPress={changeTitle}/>
+           <Button title = "çevir"
+            onPress={translate}/>
         </InputGroup>
       </View>
   </View>
