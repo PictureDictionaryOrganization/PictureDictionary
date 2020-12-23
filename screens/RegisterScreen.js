@@ -77,7 +77,7 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <SafeView style={styles.container}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
           <Image source={require('../assets/logo.png')} style={styles.logo} />
           <Text style={styles.subtitle}>Dictionary App</Text>

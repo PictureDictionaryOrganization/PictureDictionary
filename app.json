@@ -4,11 +4,11 @@
     "slug": "ReactDictionaryApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#941b0c"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,12 +21,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/favicon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#941b0c"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo.png"
     }
   }
 }

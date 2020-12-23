@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Image,View,Text } from 'react-native';
 import * as Yup from 'yup';
 
 import Colors from '../utils/colors';
@@ -37,31 +37,38 @@ export default function ForgotPasswordScreen({ navigation }) {
 
   return (
     <SafeView style={styles.container}>
-      <Form
-        initialValues={{ email: '' }}
-        validationSchema={validationSchema}
-        onSubmit={values => handlePasswordReset(values)}
-      >
-        <FormField
-          name="email"
-          leftIcon="email"
-          placeholder="E-mailinizi girin"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-          autoFocus={true}
+      <View style={styles.logoContainer}>
+          <Image source={require('../assets/logo.png')} style={styles.logo} />
+          <Text style={styles.subtitle}>Dictionary App</Text>
+      </View>
+      <View style={styles.buttonContainer}>
+        <Form
+          initialValues={{ email: '' }}
+          validationSchema={validationSchema}
+          onSubmit={values => handlePasswordReset(values)}
+        >
+          <FormField
+            name="email"
+            leftIcon="email"
+            placeholder="E-mailinizi girin"
+            autoCapitalize="none"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+            autoFocus={false}
+          />
+          <FormButton 
+          title="Şifremi Unuttum" />
+          {<FormErrorMessage error={customError} visible={true} />}
+        </Form>
+        <IconButton
+          style={styles.backButton}
+          iconName="keyboard-backspace"
+          color={Colors.white}
+          size={30}
+          onPress={() => navigation.goBack()}
         />
-        <FormButton 
-        title="Şifremi Unuttum" />
-        {<FormErrorMessage error={customError} visible={true} />}
-      </Form>
-      <IconButton
-        style={styles.backButton}
-        iconName="keyboard-backspace"
-        color={Colors.white}
-        size={30}
-        onPress={() => navigation.goBack()}
-      />
+      </View>
+      
     </SafeView>
   );
 }
@@ -69,11 +76,32 @@ export default function ForgotPasswordScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 15,
+    justifyContent: 'space-between',
     backgroundColor: Colors.dark_red
   },
   backButton: {
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10
-  }
+  },
+  logoContainer: {
+    top: "3%",
+    alignItems: 'center',
+    alignSelf:"center"
+  },
+  logo: {
+    width: 125,
+    height: 125
+  },
+  subtitle: {
+    fontSize: 30,
+    fontWeight: '600',
+    paddingVertical: 10,
+    color: Colors.white
+  },
+  buttonContainer: {
+    padding: 15,
+    paddingTop:"15%",
+    alignItems:"center"
+  },
 });
