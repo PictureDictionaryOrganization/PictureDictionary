@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View , Image } from 'react-native';
 import * as Yup from 'yup';
 
 import Colors from '../utils/colors';
@@ -52,6 +52,11 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <SafeView style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image source={require('../assets/logo.png')} style={styles.logo} />
+        <Text style={styles.subtitle}>Dictionary App</Text>
+        </View>
+      <View>
       <Form
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
@@ -64,7 +69,7 @@ export default function LoginScreen({ navigation }) {
           autoCapitalize="none"
           keyboardType="email-address"
           textContentType="emailAddress"
-          autoFocus={true}
+          autoFocus={false}
         />
         <FormField
           name="password"
@@ -92,6 +97,8 @@ export default function LoginScreen({ navigation }) {
         size={30}
         onPress={() => navigation.goBack()}
       />
+      </View>
+      
     </SafeView>
   );
 }
@@ -99,6 +106,7 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 15,
+    justifyContent: 'space-between',
     backgroundColor: Colors.dark_red
   },
   footerButtonContainer: {
@@ -114,5 +122,20 @@ const styles = StyleSheet.create({
   backButton: {
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
+  logoContainer: {
+    top: "3%",
+    alignItems: 'center',
+    alignSelf:"center"
+  },
+  logo: {
+    width: 125,
+    height: 125
+  },
+  subtitle: {
+    fontSize: 30,
+    fontWeight: '600',
+    paddingVertical: 10,
+    color: Colors.white
+  },
 });

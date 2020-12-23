@@ -17,11 +17,9 @@ export default function WelcomeScreen({ navigation }) {
       <View style={styles.buttonContainer}>
         <AppButton 
         title="Oturum Aç" 
-        color="orange"
         onPress={() => navigation.navigate('Login')} />
         <AppButton
           title="Kaydol"
-          color="blue"
           onPress={() => navigation.navigate('Register')}
         />
       </View>
@@ -38,7 +36,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     position: 'absolute',
-    top: 60,
+    top: "10%",
     alignItems: 'center'
   },
   logo: {

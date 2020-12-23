@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Image,View,Text } from 'react-native';
 import * as Yup from 'yup';
 
 import Colors from '../utils/colors';
@@ -11,6 +11,7 @@ import IconButton from '../components/IconButton';
 import FormErrorMessage from '../components/Forms/FormErrorMessage';
 import { registerWithEmail, pushProfil } from '../components/Firebase/firebase';
 import useStatusBar from '../hooks/useStatusBar';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const validationSchema = Yup.object().shape({
   ad: Yup.string()
@@ -76,69 +77,77 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <SafeView style={styles.container}>
-      <Form
-        initialValues={{
-          ad: '',
-          soyad: '',
-          email: '',
-          sifre: '',
-          sifretekrar: ''
-        }}
-        validationSchema={validationSchema}
-        onSubmit={values => handleOnSignUp(values)}
-      >
-        <FormField
-          name="ad"
-          leftIcon="account"
-          placeholder="Adınızı girin"
-          autoFocus={false}
+      <ScrollView>
+        <View style={styles.logoContainer}>
+          <Image source={require('../assets/logo.png')} style={styles.logo} />
+          <Text style={styles.subtitle}>Dictionary App</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+        <Form
+          initialValues={{
+            ad: '',
+            soyad: '',
+            email: '',
+            sifre: '',
+            sifretekrar: ''
+          }}
+          validationSchema={validationSchema}
+          onSubmit={values => handleOnSignUp(values)}
+        >
+          <FormField
+            name="ad"
+            leftIcon="account"
+            placeholder="Adınızı girin"
+            autoFocus={false}
+          />
+          <FormField
+            name="soyad"
+            leftIcon="account"
+            placeholder="Soyadınızı girin"
+            autoFocus={false}
+          />
+          <FormField
+            name="email"
+            leftIcon="email"
+            placeholder="E-mailinizi girin"
+            autoCapitalize="none"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+          />
+          <FormField
+            name="sifre"
+            leftIcon="lock"
+            placeholder="Şifrenizi girin"
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry={passwordVisibility}
+            textContentType="password"
+            rightIcon={rightIcon}
+            handlePasswordVisibility={handlePasswordVisibility}
+          />
+          <FormField
+            name="sifretekrar"
+            leftIcon="lock"
+            placeholder="Şifrenizi tekrar girin"
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry={confirmPasswordVisibility}
+            textContentType="password"
+            rightIcon={confirmPasswordIcon}
+            handlePasswordVisibility={handleConfirmPasswordVisibility}
+          />
+          <FormButton title={'Kaydol'} />
+          {<FormErrorMessage error={registerError} visible={true} />}
+        </Form>
+        <IconButton
+          style={styles.backButton}
+          iconName="keyboard-backspace"
+          color={Colors.white}
+          size={30}
+          onPress={() => navigation.goBack()}
         />
-         <FormField
-          name="soyad"
-          leftIcon="account"
-          placeholder="Soyadınızı girin"
-          autoFocus={false}
-        />
-        <FormField
-          name="email"
-          leftIcon="email"
-          placeholder="E-mailinizi girin"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-        />
-        <FormField
-          name="sifre"
-          leftIcon="lock"
-          placeholder="Şifrenizi girin"
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={passwordVisibility}
-          textContentType="password"
-          rightIcon={rightIcon}
-          handlePasswordVisibility={handlePasswordVisibility}
-        />
-        <FormField
-          name="sifretekrar"
-          leftIcon="lock"
-          placeholder="Şifrenizi tekrar girin"
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry={confirmPasswordVisibility}
-          textContentType="password"
-          rightIcon={confirmPasswordIcon}
-          handlePasswordVisibility={handleConfirmPasswordVisibility}
-        />
-        <FormButton title={'Kaydol'} />
-        {<FormErrorMessage error={registerError} visible={true} />}
-      </Form>
-      <IconButton
-        style={styles.backButton}
-        iconName="keyboard-backspace"
-        color={Colors.white}
-        size={30}
-        onPress={() => navigation.goBack()}
-      />
+        </View>      
+      </ScrollView>
     </SafeView>
   );
 }
@@ -146,11 +155,30 @@ export default function RegisterScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 15,
-    backgroundColor: Colors.dark_red
+    backgroundColor: Colors.dark_red,
   },
   backButton: {
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10
-  }
+  },
+  logoContainer: {
+    top: "3%",
+    alignItems: 'center',
+    alignSelf:"center"
+  },
+  logo: {
+    width: 125,
+    height: 125
+  },
+  subtitle: {
+    fontSize: 30,
+    fontWeight: '600',
+    paddingVertical: 10,
+    color: Colors.white
+  },
+  buttonContainer: {
+    padding: 15,
+    paddingTop:"15%",
+  },
 });

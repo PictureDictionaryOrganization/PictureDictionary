@@ -25,5 +25,6 @@ firebase.database().ref('Users/'+ uid +('/ProfileInformation')).set({
   name:name,
   surname:surname,
   email:email,
+  notifications:"on",
   profilePhoto:'https://firebasestorage.googleapis.com/v0/b/reactdictionaryapp.appspot.com/o/images%2Flogo.png?alt=media&token=316440a1-4467-4567-9cf7-b48f925eb385',
 });
