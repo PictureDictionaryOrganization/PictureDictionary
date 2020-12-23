@@ -9,7 +9,7 @@ export default {
   red: '#fc5c65',
   dark_red: '#941b0c',
   orange: '#f26419',
-  green: '#0582ca',
+  blue: '#0582ca',
   inactiveButton:'#fce4ec',
   tabbarBackgroundColor: "#b71c1c",
   changeButtonColor:"#E1E2E6",

@@ -51,7 +51,8 @@ export default function ForgotPasswordScreen({ navigation }) {
           textContentType="emailAddress"
           autoFocus={true}
         />
-        <FormButton title="Şifremi Unuttum" />
+        <FormButton 
+        title="Şifremi Unuttum" />
         {<FormErrorMessage error={customError} visible={true} />}
       </Form>
       <IconButton
@@ -68,7 +69,7 @@ export default function ForgotPasswordScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     padding: 15,
-    backgroundColor: Colors.mediumGrey
+    backgroundColor: Colors.dark_red
   },
   backButton: {
     justifyContent: 'center',

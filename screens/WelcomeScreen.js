@@ -21,7 +21,7 @@ export default function WelcomeScreen({ navigation }) {
         onPress={() => navigation.navigate('Login')} />
         <AppButton
           title="Kaydol"
-          color="green"
+          color="blue"
           onPress={() => navigation.navigate('Register')}
         />
       </View>
