@@ -14,13 +14,13 @@ import useStatusBar from '../hooks/useStatusBar';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
-    .required('Please enter a registered email')
+    .required('Lütfen kayıtlı mailinizi girin.')
     .email()
     .label('Email'),
   password: Yup.string()
-    .required()
-    .min(6, 'Password must have at least 6 characters')
-    .label('Password')
+    .required('Lütfen şifrenizi girin')
+    .min(6, 'Şifre en az 6 karakter içermelidir.')
+    .label('Şifre')
 });
 
 export default function LoginScreen({ navigation }) {
@@ -60,7 +60,7 @@ export default function LoginScreen({ navigation }) {
         <FormField
           name="email"
           leftIcon="email"
-          placeholder="Enter email"
+          placeholder="E-mailinizi girin"
           autoCapitalize="none"
           keyboardType="email-address"
           textContentType="emailAddress"
@@ -69,7 +69,7 @@ export default function LoginScreen({ navigation }) {
         <FormField
           name="password"
           leftIcon="lock"
-          placeholder="Enter password"
+          placeholder="Şifrenizi girin"
           autoCapitalize="none"
           autoCorrect={false}
           secureTextEntry={passwordVisibility}
@@ -77,12 +77,12 @@ export default function LoginScreen({ navigation }) {
           rightIcon={rightIcon}
           handlePasswordVisibility={handlePasswordVisibility}
         />
-        <FormButton title={'Login'} />
+        <FormButton title={'Oturum Aç'} />
         {<FormErrorMessage error={loginError} visible={true} />}
       </Form>
       <View style={styles.footerButtonContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={styles.forgotPasswordButtonText}>Forgot Password?</Text>
+          <Text style={styles.forgotPasswordButtonText}>Şifrenizi mi unuttunuz?</Text>
         </TouchableOpacity>
       </View>
       <IconButton

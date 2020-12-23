@@ -15,8 +15,8 @@ import useStatusBar from '../hooks/useStatusBar';
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .label('Email')
-    .email('Enter a valid email')
-    .required('Please enter a registered email')
+    .email('Lütfen geçerli bir mail girin.')
+    .required('Lütfen kayıtlı mailinizi girin.')
 });
 
 export default function ForgotPasswordScreen({ navigation }) {
@@ -45,13 +45,13 @@ export default function ForgotPasswordScreen({ navigation }) {
         <FormField
           name="email"
           leftIcon="email"
-          placeholder="Enter email"
+          placeholder="E-mailinizi girin"
           autoCapitalize="none"
           keyboardType="email-address"
           textContentType="emailAddress"
           autoFocus={true}
         />
-        <FormButton title="Forgot Password" />
+        <FormButton title="Şifremi Unuttum" />
         {<FormErrorMessage error={customError} visible={true} />}
       </Form>
       <IconButton

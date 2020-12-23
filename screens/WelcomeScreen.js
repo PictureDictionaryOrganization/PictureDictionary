@@ -11,14 +11,17 @@ export default function WelcomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image source={require('../assets/flame.png')} style={styles.logo} />
-        <Text style={styles.subtitle}>Dictionary  App</Text>
+        <Image source={require('../assets/logo.png')} style={styles.logo} />
+        <Text style={styles.subtitle}>Dictionary App</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <AppButton title="Login" onPress={() => navigation.navigate('Login')} />
+        <AppButton 
+        title="Oturum Aç" 
+        color="orange"
+        onPress={() => navigation.navigate('Login')} />
         <AppButton
-          title="Register"
-          color="secondary"
+          title="Kaydol"
+          color="green"
           onPress={() => navigation.navigate('Register')}
         />
       </View>
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: Colors.mediumGrey
+    backgroundColor: Colors.dark_red
   },
   logoContainer: {
     position: 'absolute',
@@ -43,10 +46,10 @@ const styles = StyleSheet.create({
     height: 125
   },
   subtitle: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: '600',
     paddingVertical: 20,
-    color: Colors.primary
+    color: Colors.white
   },
   buttonContainer: {
     padding: 20,
