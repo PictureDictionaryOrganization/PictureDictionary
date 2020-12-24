@@ -25,12 +25,12 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
+    "react-native-elements": "^3.0.1",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-navigation-bar-color": "^2.0.1",
     "react-native-reanimated": "^1.13.2",
     "react-native-screens": "^2.15.0",
     "react-native-web": "~0.13.12",
-    "save": "^2.4.0",
     "yup": "^0.32.1"
   },
   "devDependencies": {
