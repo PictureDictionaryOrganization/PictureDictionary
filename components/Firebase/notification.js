@@ -14,15 +14,9 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
   const [list,setList] = useState([]);
-  const [state, setState] = useState({
-    email: '',
-    name: '',
-});
 
   useEffect(() => {
     var user = firebase.auth().currentUser;
@@ -43,13 +37,9 @@ export default function App() {
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
+    notificationListener.current = Notifications.addNotificationReceivedListener();
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
+    responseListener.current = Notifications.addNotificationResponseReceivedListener();
 
     return () => {
       Notifications.removeNotificationSubscription(notificationListener);
@@ -59,18 +49,29 @@ export default function App() {
 
   async function send() {
     var index = Math.floor(Math.random() * list.length) ;
-    var arama,cevap="";
-    arama = list[index].arama
-    cevap = list[index].cevap
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "Dictionary",
-      body: arama + " - " + cevap,
-    },
-    trigger: { seconds: 1 },
-  });
+    if(index > 0){
+      var arama,cevap="";
+      arama = list[index].arama
+      cevap = list[index].cevap
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Dictionary",
+        body: arama + " - " + cevap,
+      },
+      trigger: { seconds: 1 },
+    });
+    }
+    
+    else{
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Dictionary",
+        body: "Favorilerde kelime yok",
+      },
+      trigger: { seconds: 1 },
+    });
+    }
 }
-
 async function registerForPushNotificationsAsync() {
   let token;
   if (Constants.isDevice) {
@@ -101,8 +102,6 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
-
-
   return (
     <View
       style={{
@@ -120,8 +119,6 @@ async function registerForPushNotificationsAsync() {
         <TouchableOpacity onPress={async () => {await send();}}>
           <Text style={{fontSize:20, color:"white"}}>Yolla</Text>
         </TouchableOpacity>
-        
-      
     </View>
   );
 }

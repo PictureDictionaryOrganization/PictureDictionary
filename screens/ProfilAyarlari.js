@@ -12,14 +12,14 @@ export default function ProfilAyarlari({navigation}) {
   useStatusBar('light-content');
 return (
     <SafeAreaView style={styles.container}>
-       <HeaderComponent navigation={navigation}/>  
+       <HeaderComponent navigation={navigation}/>
         <ScrollView showsVerticalScrollIndicator={false}>
 
-          <View style={styles.titleBar,{justifyContent:"space-between"}}>
+          <View style={styles.titleBar,{justifyContent:"space-between",marginTop:"10%"}}>
             <View style={styles.profileImage}>
               <Photo style={styles.profileImage}></Photo>
             </View>
-            <Change/>                          
+            <Change/>
           </View>
         </ScrollView>
     </SafeAreaView>
@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     //justifyContent: "space-between",
     padding:20
-  },  
+  },
 });
 
 LogBox.ignoreLogs([
   'Setting a timer for a long period of time',
   'Possible Unhandled Promise',
-  'Can\'t perform a React state update on an unmounted component.'
+  'Cant perform a React state update on an unmounted component.'
 ])

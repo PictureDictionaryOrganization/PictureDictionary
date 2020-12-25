@@ -17,10 +17,6 @@ export default class Change extends React.Component {
     };
   }
 
-  onSignoutPress = () => {
-    firebase.auth().signOut();
-  }
-
   reauthenticate = (currentPassword) => {
     var user = firebase.auth().currentUser;
     var cred = firebase.auth.EmailAuthProvider.credential(user.email, currentPassword);
@@ -60,7 +56,7 @@ export default class Change extends React.Component {
   
   render() {
     return (
-      <ScrollView style={{flex: 1, flexDirection: "column", paddingVertical: "3%", paddingHorizontal: "5%",}}>
+      <ScrollView style={{flex: 1, flexDirection: "column", paddingVertical: "3%", paddingHorizontal: "5%",marginTop:30}}>
 
         <TextInput style={styles.textInput} value={this.state.currentPassword}
           placeholder="Mevcut şifre" autoCapitalize="none" secureTextEntry={true}
@@ -80,7 +76,6 @@ export default class Change extends React.Component {
           onChangeText={(text) => { this.setState({newEmail: text}) }}
         />
         <AppButton title="Emaili Değiştir" onPress={this.onChangeEmailPress} />
-        <AppButton color="red" title="Çıkış Yap" onPress={this.onSignoutPress} />
 
       </ScrollView>
     );

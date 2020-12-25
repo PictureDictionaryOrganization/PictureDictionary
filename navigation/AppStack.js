@@ -2,7 +2,8 @@ import React from 'react';
 import { Ionicons} from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
+import * as firebase from 'firebase';
+import Login from '../screens/LoginScreen'
 import Arama from '../screens/Arama';
 import Favoriler from '../screens/Favoriler';
 import Profil from '../screens/Profil';
@@ -13,6 +14,11 @@ import Colors from '../utils/colors';
 const Tab = createBottomTabNavigator();
 const drawer=  createDrawerNavigator();
 export default function AppStack({navigation}) {
+
+  function handleSignOut() {
+    firebase.auth().signOut();
+    return(<Login/>);
+  }
 
   const home = ({navigation}) =>{
 
@@ -69,6 +75,7 @@ export default function AppStack({navigation}) {
         <drawer.Navigator >
             <drawer.Screen name="Ana Sayfa" component={home} navigation={navigation} />
             <drawer.Screen name="Profil Düzenle" component={Duzenle} />
+            <drawer.Screen name="Çıkış Yap" component={handleSignOut} />
         </drawer.Navigator>
         
   );
