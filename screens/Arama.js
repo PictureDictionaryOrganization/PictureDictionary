@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Button, SafeAreaView,TouchableOpacity,Text,Image,ScrollView } from 'react-native';
+import { View, StyleSheet, Button, SafeAreaView,TouchableOpacity,Text,Image,ScrollView, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import HeaderComponent from "../components/Header";
 import useStatusBar from '../hooks/useStatusBar';
 import {InputGroup,Input} from "native-base";
 import * as firebase from 'firebase';
 import axios from "axios";
-import { set } from 'react-native-reanimated';
+import { color, set } from 'react-native-reanimated';
+import Colors from '../utils/colors'
 
 export default function HomeScreen({navigation}) {
   useStatusBar('light-content');
@@ -16,6 +17,7 @@ export default function HomeScreen({navigation}) {
   const [answerState,setTranslate] = useState("");
   const [pictureState,setPicture] = useState("");
   const [favoriState,setFavori] = useState("ios-heart-empty");
+  const [loadingState,setLoading] = useState(false);
 
   const changeTitle = () => {
     if(titleState=="En-Tr"){
@@ -65,6 +67,7 @@ export default function HomeScreen({navigation}) {
   }
 
   const translate = () => {
+    setLoading(true)
     setFavori("ios-heart-empty")
     var first,second=""
     if(textState!=""){
@@ -90,6 +93,10 @@ export default function HomeScreen({navigation}) {
           //console.log(response.data.data.translation);
           setTranslate(response.data.data.translation)
           getPicture(response.data.data.translation)
+          console.log("geliyor")
+          setLoading(false)
+          
+
       }).catch(function (error) {
           console.error(error);
       });
@@ -99,7 +106,7 @@ export default function HomeScreen({navigation}) {
     <SafeAreaView style={styles.container}>
        <HeaderComponent navigation={navigation}/>  
         <View style={styles.searchStyle}>
-          <InputGroup style={{borderColor:"black", borderWidth:3}}>   
+          <InputGroup>   
             <TouchableOpacity>
               <Ionicons
               name="ios-search"
@@ -110,7 +117,10 @@ export default function HomeScreen({navigation}) {
             </TouchableOpacity>  
 
             <Input style ={styles.inputSearch} 
-            placeholder="Search" onChangeText={(value)=>setText(value)}
+            placeholder="Search" 
+            returnKeyType="done"
+            onChangeText={(value)=>setText(value)}
+            onSubmitEditing={translate}
               />
             <Button 
               title = {titleState}
@@ -119,23 +129,27 @@ export default function HomeScreen({navigation}) {
             />  
           </InputGroup>
         </View>
-        {(answerState!="" && pictureState !="") &&
+        {(loadingState==true) && (
+          <View style={{justifyContent:'center',alignItems:'center', marginTop:"30%"}}>
+            <ActivityIndicator size="large" color={Colors.red}/>
+          </View>)
+        }
+        {(answerState!="" && pictureState !="" && loadingState==false) &&(
               <View style={styles.searchStyle}>
                   <View style={{flexDirection:"column",alignItems:"center"}}>
-
                     <Text style={styles.textStyle}>{answerState}</Text>
                     <TouchableOpacity>
                       <Ionicons
                       name={favoriState}
                       color="black"
                       size={30}
+                      
                       onPress={addFavori}
                       />
                     </TouchableOpacity>           
-
                   </View>
                   <Image source={{uri:pictureState}} style={styles.imageStyle}></Image> 
-              </View>
+              </View>)
         }
     </SafeAreaView>
   );
@@ -144,26 +158,28 @@ export default function HomeScreen({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor:Colors.page_background,
   },
   inputSearch:{
     fontSize:18,
     textTransform: "capitalize",
     flex:1,
+    marginHorizontal:"3%",
   },
   searchStyle:{
     marginHorizontal:"2%",
-    marginVertical:"2%",
-    padding:"1%",
+    marginTop:"2%",
+    paddingHorizontal:"2%",
     justifyContent:"center",
-    borderWidth:2,
-    borderRadius:15,
-    backgroundColor:"#E1E2E6"
+    borderRadius:8,
+    backgroundColor:Colors.white
   },
   imageStyle:{
-    width:200,
+    width:300,
     height:200,
-    resizeMode:'contain',
+    margin:"2%",
+    resizeMode:'cover',
     alignSelf:"center"
   },
   textStyle:{

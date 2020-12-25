@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Button, SafeAreaView,TouchableOpacity,Text,Image,FlatList,ScrollView } from 'react-native';
+import { View, StyleSheet, Button, SafeAreaView,TouchableOpacity,Text,Image,FlatList,ScrollView,ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import {InputGroup,Input,List,ListItem, Left, Body, Right} from "native-base";
 import * as firebase from 'firebase';
 import HeaderComponent from "../components/Header";
 import useStatusBar from '../hooks/useStatusBar';
 import { logout } from '../components/Firebase/firebase';
+import Colors from '../utils/colors'
+
 
 export default function HomeScreen({navigation}) {
   useStatusBar('light-content');
   const [list,setList] = useState([]);
+  const [loadingState,setLoading] = useState(true);
+
 
   function removeFavori (del) {
     var User = firebase.auth().currentUser;
@@ -29,14 +33,21 @@ export default function HomeScreen({navigation}) {
               });   
             });
             setList(li); 
+            setLoading(false);
       });
 }, []);
 
-
+  
   return (
   <SafeAreaView style={styles.container}>
+    
     <View style={styles.container}>
       <HeaderComponent navigation={navigation}/>  
+      {(loadingState==true) && (
+        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+          <ActivityIndicator size="large" color={Colors.red}/>
+        </View>)
+      }
       <FlatList
       data={list}
       renderItem={({ item }) => (
@@ -49,6 +60,7 @@ export default function HomeScreen({navigation}) {
                 name="ios-heart"
                 color="black"
                 size={30}
+        
                 onPress={() => removeFavori(item.cevap)}
                 />
                 <Text style={styles.textStyle}>{item.cevap}</Text> 
@@ -68,7 +80,8 @@ export default function HomeScreen({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor:Colors.page_background,
   },
   inputSearch:{
     fontSize:18,
@@ -80,23 +93,24 @@ const styles = StyleSheet.create({
     marginTop:"2%",
     padding:"1%",
     justifyContent:"center",
-    borderWidth:2,
-    borderRadius:15,
-    backgroundColor:"#E1E2E6",
+    borderRadius:8,
+    backgroundColor:Colors.white,
     alignSelf:'auto', 
     alignItems:"stretch",
   },
   imageStyle:{
     width:150,
-    height:150,
-    resizeMode:'contain',
-    alignSelf:"center"
+    height:100,
+    margin:"2%",
+    resizeMode:'cover',
+    alignSelf:"flex-end"
   },
   textStyle:{
     fontSize:20,
     color: "black",
     textTransform: "capitalize",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    marginVertical:"1%"
   },
   profileImage: {
     overflow: "hidden",

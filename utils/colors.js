@@ -10,6 +10,7 @@ export default {
   dark_red: '#941b0c',
   orange: '#f26419',
   blue: '#0582ca',
+  page_background: "#E0E0E0",
   inactiveButton:'#fce4ec',
   tabbarBackgroundColor: "#b71c1c",
   changeButtonColor:"#E1E2E6",
