@@ -3,13 +3,14 @@ import { Text, View, SafeAreaView, Image, ScrollView,LogBox,TouchableOpacity,Sty
 import HeaderComponent from "../components/Header";
 import useStatusBar from '../hooks/useStatusBar';
 import { logout } from '../components/Firebase/firebase';
+import Notification from '../components/Firebase/notification'
 import * as firebase from 'firebase';
 import Colors from '../utils/colors'
 
 export default function HomeScreen({navigation}) {
   useStatusBar('light-content');
   const [userstate,setUser] = useState({});
-  const [isEnabled, setIsEnabled] = useState(true);
+  const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   useEffect(() => {
@@ -48,9 +49,12 @@ export default function HomeScreen({navigation}) {
             onValueChange={toggleSwitch}
             value={isEnabled}
             />
-            <Text style={[{ color: "black", fontSize: 22  }]}> Günlük kelime bildirimi</Text>
+            <Text style={[{ color: "black", fontSize: 22  }]}> Kelimelerini tekrar et</Text>
         </View>
-
+        {isEnabled==true&&
+        <Notification/>
+        }
+        
       </ScrollView>
     </SafeAreaView>
   );

@@ -62,13 +62,12 @@ export default function AppStack({navigation}) {
             <Tab.Screen name="Profil" component={ProfilPage} />
           </Tab.Navigator>
       );
-
     }
 
     return (
 
         <drawer.Navigator >
-            <drawer.Screen name="Home" component={home} navigation={navigation} />
+            <drawer.Screen name="Ana Sayfa" component={home} navigation={navigation} />
             <drawer.Screen name="Profil Düzenle" component={Duzenle} />
         </drawer.Navigator>
         

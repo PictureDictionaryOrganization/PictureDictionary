@@ -18,9 +18,6 @@ export default class Change extends React.Component {
   }
 
   onSignoutPress = () => {
-    var user = firebase.auth().currentUser;
-    firebase.database().ref('Users/'+ user.uid + ('/Comments')).off()
-    firebase.database().ref('Users/'+ user.uid + ('/ProfileInformation')).off()
     firebase.auth().signOut();
   }
 
@@ -32,13 +29,13 @@ export default class Change extends React.Component {
 
   onChangePasswordPress = () => {
     if(this.state.currentPassword==""){
-      console.error("Değişiklik yapmak için mevcut şifrenizi girmelisiniz.");
+      Alert.alert("Değişiklik yapmak için mevcut şifrenizi girmelisiniz.");
     }
       else {
       this.reauthenticate(this.state.currentPassword).then(() => {
         var user = firebase.auth().currentUser;
         user.updatePassword(this.state.newPassword).then(() => {
-          Alert.alert("Password was changed");
+          Alert.alert("Şifre değiştirildi");
         }).catch((error) => { console.log(error.message); });
       }).catch((error) => { console.log(error.message) });
     }
@@ -46,13 +43,13 @@ export default class Change extends React.Component {
 
   onChangeEmailPress = () => {
     if(this.state.currentPassword==""){
-      console.error("You must enter your current password");
+      Alert.alert("Değişiklik yapmak için mevcut şifrenizi girmelisiniz");
     }
     else {
       this.reauthenticate(this.state.currentPassword).then(() => {
         var user = firebase.auth().currentUser;
         user.updateEmail(this.state.newEmail).then(() => {
-          Alert.alert("Email was changed");
+          Alert.alert("Email değiştirildi");
           firebase.database().ref('Users/'+ user.uid +('/ProfileInformation')).update({
           email:this.state.newEmail,
           });
@@ -66,24 +63,24 @@ export default class Change extends React.Component {
       <ScrollView style={{flex: 1, flexDirection: "column", paddingVertical: "3%", paddingHorizontal: "5%",}}>
 
         <TextInput style={styles.textInput} value={this.state.currentPassword}
-          placeholder="Current Password" autoCapitalize="none" secureTextEntry={true}
+          placeholder="Mevcut şifre" autoCapitalize="none" secureTextEntry={true}
           onChangeText={(text) => { this.setState({currentPassword: text}) }}
         />
 
         <TextInput style={styles.textInput} value={this.state.newPassword}
-          placeholder="New Password" autoCapitalize="none" secureTextEntry={true}
+          placeholder="Yeni şifre" autoCapitalize="none" secureTextEntry={true}
           onChangeText={(text) => { this.setState({newPassword: text}) }}
         />
 
-        <AppButton title="Change Password" onPress={this.onChangePasswordPress} />
+        <AppButton title="Şifreyi Değiştir" onPress={this.onChangePasswordPress} />
 
 
-        <TextInput style={styles.textInput} value={this.state.newEmail}
-          placeholder="New Email" autoCapitalize="none" keyboardType="email-address"
+        <TextInput style={styles.textInput2} value={this.state.newEmail}
+          placeholder="Yeni email" autoCapitalize="none" keyboardType="email-address"
           onChangeText={(text) => { this.setState({newEmail: text}) }}
         />
-        <AppButton title="Change Email" onPress={this.onChangeEmailPress} />
-        <AppButton color="red" title="Sign out" onPress={this.onSignoutPress} />
+        <AppButton title="Emaili Değiştir" onPress={this.onChangeEmailPress} />
+        <AppButton color="red" title="Çıkış Yap" onPress={this.onSignoutPress} />
 
       </ScrollView>
     );
@@ -100,11 +97,23 @@ const styles = StyleSheet.create({
         borderWidth:1, 
         borderColor:"gray", 
         borderRadius: 30,
-        marginVertical: 5, 
+        marginVertical: 10, 
         padding:10, 
         height:40, 
         alignSelf: "stretch", 
         fontSize: 18, 
         textAlign: "center", 
     },
+    textInput2: {
+      borderWidth:1, 
+      borderColor:"gray", 
+      borderRadius: 30,
+      marginVertical: 10,
+      marginTop:25, 
+      padding:10, 
+      height:40, 
+      alignSelf: "stretch", 
+      fontSize: 18, 
+      textAlign: "center", 
+  },
 });
