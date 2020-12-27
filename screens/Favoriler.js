@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Button, SafeAreaView,TouchableOpacity,Text,Image,FlatList,ScrollView,ActivityIndicator } from 'react-native';
+import { View, StyleSheet, SafeAreaView,TouchableOpacity,Text,Image,FlatList,ActivityIndicator,StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import {InputGroup,Input,List,ListItem, Left, Body, Right} from "native-base";
+import {Body, Right} from "native-base";
 import * as firebase from 'firebase';
 import HeaderComponent from "../components/Header";
-import useStatusBar from '../hooks/useStatusBar';
-import { logout } from '../components/Firebase/firebase';
 import Colors from '../utils/colors'
 
 
 export default function HomeScreen({navigation}) {
-  useStatusBar('light-content');
   const [list,setList] = useState([]);
   const [loadingState,setLoading] = useState(true);
 
@@ -40,7 +37,7 @@ export default function HomeScreen({navigation}) {
   
   return (
   <SafeAreaView style={styles.container}>
-    
+    <StatusBar barStyle="light-content" backgroundColor="black"/>
     <View style={styles.container}>
       <HeaderComponent navigation={navigation}/>  
       {(loadingState==true) && (
@@ -83,11 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor:Colors.page_background,
   },
-  inputSearch:{
-    fontSize:18,
-    textTransform: "capitalize",
-    flex:1,
-  },
   searchStyle:{
     marginHorizontal:"2%",
     marginTop:"2%",
@@ -118,13 +110,3 @@ const styles = StyleSheet.create({
     justifyContent:'center',
 },
 });
-
-/* 
-  async function handleSignOut() {
-    try {
-      await logout();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  */

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet,Image,View,Text } from 'react-native';
+import { StyleSheet,Image,View,Text,StatusBar } from 'react-native';
 import * as Yup from 'yup';
-
 import Colors from '../utils/colors';
 import SafeView from '../components/SafeView';
 import Form from '../components/Forms/Form';
@@ -10,7 +9,6 @@ import FormButton from '../components/Forms/FormButton';
 import IconButton from '../components/IconButton';
 import FormErrorMessage from '../components/Forms/FormErrorMessage';
 import { registerWithEmail, pushProfil } from '../components/Firebase/firebase';
-import useStatusBar from '../hooks/useStatusBar';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const validationSchema = Yup.object().shape({
@@ -34,7 +32,6 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function RegisterScreen({ navigation }) {
-  useStatusBar('light-content');
 
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
@@ -77,6 +74,7 @@ export default function RegisterScreen({ navigation }) {
 
   return (
     <SafeView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="black"/>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.logoContainer}>
           <Image source={require('../assets/logo.png')} style={styles.logo} />

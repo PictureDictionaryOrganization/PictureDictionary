@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, SafeAreaView, Image, ScrollView,LogBox,TouchableOpacity,StyleSheet,Switch} from "react-native";
+import { Text, View, SafeAreaView, Image, ScrollView,LogBox,StyleSheet,Switch,StatusBar} from "react-native";
 import HeaderComponent from "../components/Header";
-import useStatusBar from '../hooks/useStatusBar';
-import { logout } from '../components/Firebase/firebase';
 import Notification from '../components/Firebase/notification'
 import * as firebase from 'firebase';
 import Colors from '../utils/colors'
 
 export default function HomeScreen({navigation}) {
-  useStatusBar('light-content');
   const [userstate,setUser] = useState({});
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -21,15 +18,12 @@ export default function HomeScreen({navigation}) {
       user.surname = (snapshot.val() && snapshot.val().surname) || 'Anonymous';
       user.email = (snapshot.val() && snapshot.val().email) || 'Anonymous';
       user.image=(snapshot.val() && snapshot.val().profilePhoto);
-      user.notifications=(snapshot.val() && snapshot.val().notifications);
       setUser(user);
   });
-    firebase.database().ref('Users/'+ User.uid +('/ProfileInformation')).update({
-    notifications:isEnabled,
-    }) 
 })
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="black"/>
     <HeaderComponent navigation={navigation}/>  
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.titleBar}></View>
@@ -53,8 +47,7 @@ export default function HomeScreen({navigation}) {
         </View>
         {isEnabled==true&&
         <Notification/>
-        }
-        
+        }      
       </ScrollView>
     </SafeAreaView>
   );
@@ -66,7 +59,6 @@ const styles = StyleSheet.create({
   },
   titleBar: {
     flexDirection: "column",
-    //justifyContent: "space-between",
     height: 180,
     backgroundColor:Colors.inactiveButton
   },
@@ -98,7 +90,19 @@ const styles = StyleSheet.create({
   },  
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
 LogBox.ignoreLogs([
   'Setting a timer for a long period of time',
-  'Can\'t perform a React state update on an unmounted component.'
+  'Can\'t perform a React state update on an unmounted component.',
 ])

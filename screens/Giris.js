@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View , Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View , Image,StatusBar } from 'react-native';
 import * as Yup from 'yup';
-
 import Colors from '../utils/colors';
 import SafeView from '../components/SafeView';
 import Form from '../components/Forms/Form';
@@ -10,7 +9,6 @@ import FormButton from '../components/Forms/FormButton';
 import IconButton from '../components/IconButton';
 import { loginWithEmail } from '../components/Firebase/firebase';
 import FormErrorMessage from '../components/Forms/FormErrorMessage';
-import useStatusBar from '../hooks/useStatusBar';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -24,7 +22,6 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen({ navigation }) {
-  useStatusBar('light-content');
 
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
@@ -52,6 +49,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <SafeView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="black"/>
         <View style={styles.logoContainer}>
           <Image source={require('../assets/logo.png')} style={styles.logo} />
         <Text style={styles.subtitle}>Dictionary App</Text>
@@ -86,7 +84,7 @@ export default function LoginScreen({ navigation }) {
         {<FormErrorMessage error={loginError} visible={true} />}
       </Form>
       <View style={styles.footerButtonContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+        <TouchableOpacity onPress={() => navigation.navigate('SifreYenileme')}>
           <Text style={styles.forgotPasswordButtonText}>Şifrenizi mi unuttunuz?</Text>
         </TouchableOpacity>
       </View>
@@ -98,7 +96,6 @@ export default function LoginScreen({ navigation }) {
         onPress={() => navigation.goBack()}
       />
       </View>
-      
     </SafeView>
   );
 }

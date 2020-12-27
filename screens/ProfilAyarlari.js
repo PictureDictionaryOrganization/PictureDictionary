@@ -1,29 +1,25 @@
 import React,{ useState } from 'react';
-import { Text, View, SafeAreaView, Image, ScrollView,LogBox,TouchableOpacity,StyleSheet} from "react-native";
+import { View,SafeAreaView,ScrollView,LogBox,StyleSheet,StatusBar} from "react-native";
 import HeaderComponent from "../components/Header";
-import useStatusBar from '../hooks/useStatusBar';
 import Colors from '../utils/colors'
-import IconButton from '../components/IconButton';
 import Photo from '../components/Firebase/storagePhoto'
 import Change from '../components/Firebase/changeEmailPassword'
-import * as firebase from 'firebase';
 
 export default function ProfilAyarlari({navigation}) {
-  useStatusBar('light-content');
-return (
-    <SafeAreaView style={styles.container}>
-       <HeaderComponent navigation={navigation}/>
-        <ScrollView showsVerticalScrollIndicator={false}>
-
-          <View style={styles.titleBar,{justifyContent:"space-between",marginTop:"10%"}}>
-            <View style={styles.profileImage}>
-              <Photo style={styles.profileImage}></Photo>
+  return (
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor="black"/>
+        <HeaderComponent navigation={navigation}/>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.titleBar,{justifyContent:"space-between",marginTop:"10%"}}>
+              <View style={styles.profileImage}>
+                <Photo style={styles.profileImage}></Photo>
+              </View>
+              <Change/>
             </View>
-            <Change/>
-          </View>
-        </ScrollView>
-    </SafeAreaView>
-);
+          </ScrollView>
+      </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -32,7 +28,6 @@ const styles = StyleSheet.create({
   },
   titleBar: {
     flexDirection: "column",
-    //justifyContent: "space-between",
     height: 180,
     backgroundColor:Colors.inactiveButton
   },
@@ -55,13 +50,26 @@ const styles = StyleSheet.create({
     alignSelf:"center",
     alignItems:"center",
     flexDirection: "column",
-    //justifyContent: "space-between",
     padding:20
   },
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 LogBox.ignoreLogs([
   'Setting a timer for a long period of time',
   'Possible Unhandled Promise',
-  'Cant perform a React state update on an unmounted component.'
+  'Cant perform a React state update on an unmounted component.',
 ])

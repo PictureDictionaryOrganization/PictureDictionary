@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-
 import { auth } from '../components/Firebase/firebase';
 import navigationTheme from './navigationTheme';
 import AuthStack from './AuthStack';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Alert, TouchableOpacity,Text} from 'react-native';
+import { StyleSheet, Alert, TouchableOpacity,Text,StatusBar} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import * as firebase from 'firebase';
@@ -19,7 +19,7 @@ export default class Photo extends React.Component {
         image=result.uri
         this.uploadImage(result.uri, user.uid)
         .then(() => {
-          Alert.alert("Porifle picture has been changed");
+          Alert.alert("Profil fotoğrafı değiştirildi.");
           this.getLink(user)
         })
         .catch((error) => {
@@ -40,15 +40,13 @@ export default class Photo extends React.Component {
     firebase.database().ref('Users/'+ uid.uid +('/ProfileInformation')).update({
     profilePhoto:url,
     });
-    firebase.database().ref('Users/'+ uid.uid +('/ProfileInformation')).update({
-    profilePhoto:url,
-    });
     uid.Object.photoURL=url
   }
 
   render() {
     return (
-        <TouchableOpacity style={styles.avatarPlaceHolder} onPress={this.onChooseImagePress}>            
+        <TouchableOpacity style={styles.avatarPlaceHolder} onPress={this.onChooseImagePress}>   
+        <StatusBar barStyle="light-content" backgroundColor="black"/>         
             <Ionicons name="ios-add" size={40} color="black" />
             <Text>Fotoğraf Ekle</Text>
         </TouchableOpacity>

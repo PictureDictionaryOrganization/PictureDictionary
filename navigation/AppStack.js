@@ -2,33 +2,32 @@ import React from 'react';
 import { Ionicons} from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import * as firebase from 'firebase';
-import Login from '../screens/LoginScreen'
+import {logout} from '../components/Firebase/firebase'
+import Giris from '../screens/Giris'
 import Arama from '../screens/Arama';
 import Favoriler from '../screens/Favoriler';
 import Profil from '../screens/Profil';
 import Duzenle from '../screens/ProfilAyarlari'
-import useStatusBar from '../hooks/useStatusBar';
 import Colors from '../utils/colors';
 
 const Tab = createBottomTabNavigator();
 const drawer=  createDrawerNavigator();
 export default function AppStack({navigation}) {
 
-  function handleSignOut() {
-    firebase.auth().signOut();
-    return(<Login/>);
+  function cikisYap() {
+    logout()
+    return(<Giris/>);
   }
 
   const home = ({navigation}) =>{
 
-      function AramaPage() {
+      function AramaSayfasi() {
         return (<Arama navigation={navigation}/>);
       }
-      function FavorilerPage() {
+      function FavorilerSayfasi() {
         return (<Favoriler navigation={navigation}/>);
       }
-      function ProfilPage() { 
+      function ProfilSayfasi() { 
         return (<Profil navigation={navigation}/>);
       }
       
@@ -63,9 +62,9 @@ export default function AppStack({navigation}) {
               inactiveBackgroundColor: Colors.tabbarBackgroundColor
             }}
           >
-            <Tab.Screen name="Arama" component={AramaPage} />
-            <Tab.Screen name="Favoriler" component={FavorilerPage} />
-            <Tab.Screen name="Profil" component={ProfilPage} />
+            <Tab.Screen name="Arama" component={AramaSayfasi} />
+            <Tab.Screen name="Favoriler" component={FavorilerSayfasi} />
+            <Tab.Screen name="Profil" component={ProfilSayfasi} />
           </Tab.Navigator>
       );
     }
@@ -75,7 +74,7 @@ export default function AppStack({navigation}) {
         <drawer.Navigator >
             <drawer.Screen name="Ana Sayfa" component={home} navigation={navigation} />
             <drawer.Screen name="Profil Düzenle" component={Duzenle} />
-            <drawer.Screen name="Çıkış Yap" component={handleSignOut} />
+            <drawer.Screen name="Çıkış Yap" component={cikisYap} />
         </drawer.Navigator>
         
   );

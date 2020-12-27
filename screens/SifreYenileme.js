@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet,Image,View,Text } from 'react-native';
+import { StyleSheet,Image,View,Text,Alert,StatusBar } from 'react-native';
 import * as Yup from 'yup';
-
 import Colors from '../utils/colors';
 import SafeView from '../components/SafeView';
 import Form from '../components/Forms/Form';
@@ -10,7 +9,7 @@ import FormButton from '../components/Forms/FormButton';
 import IconButton from '../components/IconButton';
 import { passwordReset } from '../components/Firebase/firebase';
 import FormErrorMessage from '../components/Forms/FormErrorMessage';
-import useStatusBar from '../hooks/useStatusBar';
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -20,7 +19,6 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function ForgotPasswordScreen({ navigation }) {
-  useStatusBar('light-content');
 
   const [customError, setCustomError] = useState('');
 
@@ -29,7 +27,8 @@ export default function ForgotPasswordScreen({ navigation }) {
 
     try {
       await passwordReset(email);
-      navigation.navigate('Welcome');
+      Alert.alert("Emailinize gelen linki takip ederek şifrenizi değiştirebilirsiniz.");
+      navigation.navigate('HosgeldinEkrani');
     } catch (error) {
       setCustomError(error.message);
     }
@@ -37,6 +36,7 @@ export default function ForgotPasswordScreen({ navigation }) {
 
   return (
     <SafeView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="black"/>
       <View style={styles.logoContainer}>
           <Image source={require('../assets/logo.png')} style={styles.logo} />
           <Text style={styles.subtitle}>Dictionary App</Text>

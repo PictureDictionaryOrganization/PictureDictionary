@@ -1,15 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
-
+import { View, StyleSheet, Text, Image,StatusBar } from 'react-native';
 import AppButton from '../components/AppButton';
 import Colors from '../utils/colors';
-import useStatusBar from '../hooks/useStatusBar';
 
 export default function WelcomeScreen({ navigation }) {
-  useStatusBar('light-content');
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="black"/>
       <View style={styles.logoContainer}>
         <Image source={require('../assets/logo.png')} style={styles.logo} />
         <Text style={styles.subtitle}>Dictionary App</Text>
@@ -17,10 +15,10 @@ export default function WelcomeScreen({ navigation }) {
       <View style={styles.buttonContainer}>
         <AppButton 
         title="Oturum Aç" 
-        onPress={() => navigation.navigate('Login')} />
+        onPress={() => navigation.navigate('Giris')} />
         <AppButton
           title="Kaydol"
-          onPress={() => navigation.navigate('Register')}
+          onPress={() => navigation.navigate('Kayit')}
         />
       </View>
     </View>

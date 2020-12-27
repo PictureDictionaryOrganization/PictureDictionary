@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Button, SafeAreaView,TouchableOpacity,Text,Image,ScrollView, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Button, SafeAreaView,TouchableOpacity,Text,Image, ActivityIndicator,LogBox,StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import HeaderComponent from "../components/Header";
-import useStatusBar from '../hooks/useStatusBar';
 import {InputGroup,Input} from "native-base";
 import * as firebase from 'firebase';
 import axios from "axios";
-import { color, set } from 'react-native-reanimated';
 import Colors from '../utils/colors'
 
 export default function HomeScreen({navigation}) {
-  useStatusBar('light-content');
   const [textState,setText] = useState("");
   const [titleState, setTitle] = useState("En-Tr");
   const [colorState, setColor] = useState("#b71c1c");
@@ -59,7 +56,6 @@ export default function HomeScreen({navigation}) {
     };
     
     axios.request(options).then(function (response) {
-        //console.log(response.data.value[0].contentUrl);
         setPicture(response.data.value[0].contentUrl)
     }).catch(function (error) {
         console.error(error);
@@ -90,10 +86,8 @@ export default function HomeScreen({navigation}) {
       };
       
       axios.request(options).then(function (response) {
-          //console.log(response.data.data.translation);
           setTranslate(response.data.data.translation)
           getPicture(response.data.data.translation)
-          console.log("geliyor")
           setLoading(false)
           
 
@@ -104,7 +98,8 @@ export default function HomeScreen({navigation}) {
   }
   return (
     <SafeAreaView style={styles.container}>
-       <HeaderComponent navigation={navigation}/>  
+       <HeaderComponent navigation={navigation}/>
+       <StatusBar barStyle="light-content" backgroundColor="black"/>  
         <View style={styles.searchStyle}>
           <InputGroup>   
             <TouchableOpacity>
@@ -189,3 +184,27 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+LogBox.ignoreLogs([
+  'Encountered two children with the same key',
+])

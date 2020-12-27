@@ -3,7 +3,7 @@ import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, TouchableOpacity, Platform } from 'react-native';
+import { Text, View, TouchableOpacity, Platform,StatusBar } from 'react-native';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -49,7 +49,7 @@ export default function App() {
 
   async function send() {
     var index = Math.floor(Math.random() * list.length) ;
-    if(index > 0){
+    if(list.length > 0){
       var arama,cevap="";
       arama = list[index].arama
       cevap = list[index].cevap
@@ -116,8 +116,9 @@ async function registerForPushNotificationsAsync() {
         paddingHorizontal:10,
         backgroundColor:"#b71c1c"
       }}>
+        <StatusBar barStyle="light-content" backgroundColor="black"/>
         <TouchableOpacity onPress={async () => {await send();}}>
-          <Text style={{fontSize:20, color:"white"}}>Yolla</Text>
+          <Text style={{fontSize:20, color:"white"}}> Hatırlat </Text>
         </TouchableOpacity>
     </View>
   );

@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import WelcomeScreen from '../screens/WelcomeScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import LoginScreen from '../screens/LoginScreen';
-import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import HosgeldinEkrani from '../screens/HosgeldinEkrani';
+import Kayit from '../screens/Kayit';
+import Giris from '../screens/Giris';
+import SifreYenileme from '../screens/SifreYenileme';
 
 const Stack = createStackNavigator();
 
 export default function AuthStack() {
   return (
-    <Stack.Navigator initialRouteName="Welcome" headerMode="none">
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+    <Stack.Navigator initialRouteName="HosgeldinEkrani" headerMode="none">
+      <Stack.Screen name="HosgeldinEkrani" component={HosgeldinEkrani} />
+      <Stack.Screen name="Giris" component={Giris} />
+      <Stack.Screen name="Kayit" component={Kayit} />
+      <Stack.Screen name="SifreYenileme" component={SifreYenileme} />
     </Stack.Navigator>
   );
 }
