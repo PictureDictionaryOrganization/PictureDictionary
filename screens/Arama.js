@@ -28,10 +28,10 @@ export default function HomeScreen({navigation}) {
   }
 
   const addFavori = () =>{
+    var uid = firebase.auth().currentUser.uid;
     if(favoriState=="ios-heart-empty"){
-      setFavori("ios-heart")
-      var User = firebase.auth().currentUser;
-      firebase.database().ref('Users/'+ User.uid +('/Favoriler/') + answerState).set({
+      setFavori("ios-heart") 
+      firebase.database().ref('Users/'+ uid +('/Favoriler/') + answerState).set({
       arama:textState,
       cevap:answerState,
       image:pictureState,
@@ -39,8 +39,7 @@ export default function HomeScreen({navigation}) {
     }
     else{
       setFavori("ios-heart-empty")
-      var User = firebase.auth().currentUser;
-      firebase.database().ref('Users/'+ User.uid +('/Favoriler/')+answerState).remove()
+      firebase.database().ref('Users/'+ uid +('/Favoriler/')+answerState).remove()
     }
   }
 
