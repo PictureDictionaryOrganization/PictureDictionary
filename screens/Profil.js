@@ -5,15 +5,15 @@ import Notification from '../components/Firebase/notification'
 import * as firebase from 'firebase';
 import Colors from '../utils/colors'
 
-export default function HomeScreen({navigation}) {
+export default function ProfilSayfasi({navigation}) {
   const [userstate,setUser] = useState({});
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
+  const User = firebase.auth().currentUser
+  
   useEffect(() => {
     var user ={email:'',name:'',surname:'',image:'',notifications:''};
-    var User = firebase.auth().currentUser;
-    firebase.database().ref('Users/'+User.uid+'/ProfileInformation').once('value', function (snapshot) {
+    firebase.database().ref('Users/'+ User.uid +'/ProfileInformation').once('value', function (snapshot) {
       user.name = (snapshot.val() && snapshot.val().name) || 'Anonymous';
       user.surname = (snapshot.val() && snapshot.val().surname) || 'Anonymous';
       user.email = (snapshot.val() && snapshot.val().email) || 'Anonymous';

@@ -7,20 +7,18 @@ import HeaderComponent from "../components/Header";
 import Colors from '../utils/colors'
 
 
-export default function HomeScreen({navigation}) {
+export default function FavorilerSayfasi({navigation}) {
   const [list,setList] = useState([]);
   const [loadingState,setLoading] = useState(true);
-
+  const User = firebase.auth().currentUser
 
   function removeFavori (del) {
-    var User = firebase.auth().currentUser;
     firebase.database().ref('Users/'+ User.uid +('/Favoriler/') + del).remove()
   }
 
   useEffect(() => {
-    var user = firebase.auth().currentUser;
     const li = []; 
-    firebase.database().ref('Users/'+ user.uid +'/Favoriler').on('value',function (data) {
+    firebase.database().ref('Users/'+ User.uid +'/Favoriler').on('value',function (data) {
           data.forEach((child)=>{               
               li.push({
                   arama:child.val().arama,

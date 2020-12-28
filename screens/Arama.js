@@ -7,7 +7,7 @@ import * as firebase from 'firebase';
 import axios from "axios";
 import Colors from '../utils/colors'
 
-export default function HomeScreen({navigation}) {
+export default function AramaSayfasi({navigation}) {
   const [textState,setText] = useState("");
   const [titleState, setTitle] = useState("En-Tr");
   const [colorState, setColor] = useState("#b71c1c");
@@ -15,6 +15,7 @@ export default function HomeScreen({navigation}) {
   const [pictureState,setPicture] = useState("");
   const [favoriState,setFavori] = useState("ios-heart-empty");
   const [loadingState,setLoading] = useState(false);
+  const User = firebase.auth().currentUser
 
   const changeTitle = () => {
     if(titleState=="En-Tr"){
@@ -28,10 +29,9 @@ export default function HomeScreen({navigation}) {
   }
 
   const addFavori = () =>{
-    var uid = firebase.auth().currentUser.uid;
     if(favoriState=="ios-heart-empty"){
       setFavori("ios-heart") 
-      firebase.database().ref('Users/'+ uid +('/Favoriler/') + answerState).set({
+      firebase.database().ref('Users/'+ User.uid +('/Favoriler/') + answerState).set({
       arama:textState,
       cevap:answerState,
       image:pictureState,
