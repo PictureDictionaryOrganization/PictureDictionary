@@ -1,0 +1,17 @@
+export default {
+  primary: '#6e6869',
+  secondary: '#6e6869',
+  black: '#222222',
+  white: '#ffffff',
+  ghostWhite: '#f8f8ff',
+  lightGrey: '#f9f9f9',
+  mediumGrey: '#6e6869',
+  red: '#fc5c65',
+  dark_red: '#941b0c',
+  orange: '#f26419',
+  blue: '#0582ca',
+  page_background: "#E0E0E0",
+  inactiveButton:'#fce4ec',
+  tabbarBackgroundColor: "#b71c1c",
+  changeButtonColor:"#E1E2E6",
+};
